@@ -186,10 +186,20 @@ function formatDate(date) {
  * 12, 2023 => 10
  * 1, 2024 => 8
  */
-function getCountWeekendsInMonth(/* month, year */) {
-  throw new Error('Not implemented');
-}
 
+function getCountWeekendsInMonth(month, year) {
+  const start = new Date(year, month - 1, 1);
+  const totalDays = new Date(year, month, 0).getDate();
+  const startWeekday = start.getDay();
+  const remainingDays = totalDays % 7;
+
+  const fullWeekends = Math.floor(totalDays / 7) * 2;
+
+  const saturday = startWeekday === 6 || startWeekday + remainingDays > 6;
+  const sunday = startWeekday === 0 || startWeekday + remainingDays > 7;
+
+  return fullWeekends + saturday + sunday;
+}
 /**
  * Returns the week number of the year for a given date.
  * The first week of the year is defined according to ISO8601.
@@ -203,8 +213,10 @@ function getCountWeekendsInMonth(/* month, year */) {
  * Date(2024, 0, 31) => 5
  * Date(2024, 1, 23) => 8
  */
-function getWeekNumberByDate(/* date */) {
-  throw new Error('Not implemented');
+function getWeekNumberByDate(date) {
+  const yearStart = new Date(date.getFullYear(), 0);
+  console.log(yearStart, date);
+  return date;
 }
 
 /**
